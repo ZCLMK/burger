@@ -17,6 +17,8 @@ class Checkout extends Component {
   render() {
     // fix: if there are no ingredients yet (upon refresh), user is redirected
     let summary = <Redirect to="/" />;
+    let purchased = this.props.purchased ? <Redirect to="/" /> : null;
+
     if (this.props.ings) {
       summary = (
         <div>
@@ -33,13 +35,19 @@ class Checkout extends Component {
         </div>
       );
     }
-    return <div>{summary}</div>;
+    return (
+      <div>
+        {summary}
+        {purchased}
+      </div>
+    );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    ings: state.burger.ingredients
+    ings: state.burger.ingredients,
+    purchased: state.order.purchased
   };
 };
 
